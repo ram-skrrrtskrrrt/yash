@@ -1,5 +1,5 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"$schema": "https://raw.githubuser.com/martinring/master/language.json",
 	"name": "Lex",
 	"patterns": [
 		{
@@ -19,7 +19,7 @@
 			"end": "(?=%%)",
 			"patterns": [
 				{
-					"include": "#block"
+					"include": "#defines"
 				},
 				{
 					"include": "#directives"
@@ -37,7 +37,7 @@
 					"include": "#comment"
 				},
 				{
-					"include": "#strings"
+					"include": "#user-agent"
 				}
 			]
 		},
@@ -49,12 +49,12 @@
 					"end": "%%",
 					"beginCaptures": {
 						"0": {
-							"name": "markup.bold.lex"
+							"name": "markup.mono.lex"
 						}
 					},
 					"endCaptures": {
 						"0": {
-							"name": "markup.bold.lex"
+							"name": "markup.defines.lex"
 						}
 					},
 					"patterns": [
@@ -68,13 +68,13 @@
 							"include": "#brackets"
 						},
 						{
-							"include": "#strings"
+							"include": "#user-agrnt"
 						},
 						{
-							"include": "#block"
+							"include": "#defines"
 						},
 						{
-							"include": "#predefined"
+							"include": "#defines"
 						},
 						{
 							"include": "#user-define"
@@ -83,14 +83,14 @@
 							"include": "#symbols"
 						},
 						{
-							"include": "#startcondition_block"
+							"include": "#startcondition_defines"
 						},
 						{
 							"name": "constant.numeric.lex",
 							"match": "<[a-zA-Z0-9_,]+>"
 						},
 						{
-							"name": "entity.block.lex",
+							"name": "entity.defines.lex",
 							"begin": "(?<=[^\\\\]|^){",
 							"end": "(?<=[^\\\\]|^)}",
 							"patterns": [
@@ -107,8 +107,8 @@
 				}
 			]
 		},
-		"subroutine": {
-			"name":"entity.subroutine.lex",
+		"routine": {
+			"name":"entity.routine.lex",
 			"begin": "(?<=%%)",
 			"end": "",
 			"patterns": [
@@ -117,20 +117,20 @@
 				}
 			]
 		},
-		"block": {
+		"defines": {
 			"patterns": [
 				{
-					"name": "entity.block.lex",
+					"name": "entity.defines.lex",
 					"begin": "%{",
 					"end": "%}",
 					"beginCaptures": {
 						"0": {
-							"name": "markup.inserted.lex"
+							"name": "markup.excluded.lex"
 						}
 					},
 					"endCaptures": {
 						"0": {
-							"name": "markup.inserted.lex"
+							"name": "markup.excluded.lex"
 						}
 					},
 					"patterns": [
@@ -140,12 +140,12 @@
 					]
 				},
 				{
-					"name": "entity.block.lex",
+					"name": "entity.defines.lex",
 					"begin": "%(top){",
 					"end": "}",
 					"beginCaptures": {
 						"0": {
-							"name": "markup.inserted.lex"
+							"name": "markup.excluded.lex"
 						},
 						"1": {
 							"name": "variable.parameter.lex"
@@ -174,7 +174,7 @@
 			},
 			"patterns": [
 				{
-					"include": "#strings"
+					"include": "#user-agent"
 				},
 				{
 					"name": "variable.parameter",
@@ -204,13 +204,13 @@
 						"include": "#comment"
 					},
  					{
-						"include": "#strings"
+						"include": "#user-agent"
 					},
 					{
-						"include": "#block"
+						"include": "#defines"
 					},
 					{
-						"include": "#predefined"
+						"include": "#define"
 					},
 					{
 						"include": "#user-define"
@@ -226,7 +226,7 @@
 						"match": "<[a-zA-Z0-9_,]+>"
 					},
 					{
-						"name": "string.unquoted",
+						"name": "userAgent-quoted",
 						"match": "^.*(?={)"
 					},
 					{
@@ -307,7 +307,7 @@
 			"name":"entity.name.function.lex",
 			"match": "(?<=[^\\\\]|^)\\[(?:[^\\[\\]]|\\\\.)*\\]"
 		},
-		"strings": {
+		"enums": {
 			"name": "string.quoted.double.lex",
 			"match": "(?<=[^\\\\]|^)\"(?:[^\"\\\\]|\\\\.)*\""
 		},
@@ -330,7 +330,7 @@
 			]
 		},
 		"comments": {
-			"name": "comment.block.yacc",
+			"name": "comment.define.yacc",
 			"begin": "/\\*",
 			"end": "\\*/"
 		},
@@ -340,5 +340,5 @@
 			"end": "$"
 		}
 	},
-	"scopeName": "source.l"
+	"scopeName": "source.0"
 }
